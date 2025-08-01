@@ -8,35 +8,45 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Stardew Valley inspired warm palette */
+    --background: 45 25% 88%;
+    --foreground: 25 20% 25%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 35 30% 82%;
+    --card-foreground: 25 20% 25%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 35 30% 82%;
+    --popover-foreground: 25 20% 25%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 25 35% 45%;
+    --primary-foreground: 45 25% 88%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 35 25% 75%;
+    --secondary-foreground: 25 20% 25%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 35 20% 70%;
+    --muted-foreground: 25 15% 45%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 40 45% 65%;
+    --accent-foreground: 25 20% 25%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 60% 55%;
+    --destructive-foreground: 45 25% 88%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 25 25% 55%;
+    --input: 35 25% 75%;
+    --ring: 25 35% 45%;
 
-    --radius: 0.5rem;
+    /* Game-inspired design tokens */
+    --wood-light: 35 30% 82%;
+    --wood-medium: 25 30% 65%;
+    --wood-dark: 25 35% 45%;
+    --wood-darker: 20 25% 35%;
+    
+    --pixel-shadow: 0 4px 0 hsl(var(--wood-darker));
+    --pixel-border: 3px solid hsl(var(--wood-dark));
+    
+    --radius: 0;
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +111,49 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Courier New', monospace;
+    image-rendering: pixelated;
+  }
+}
+
+@layer components {
+  .pixel-border {
+    border: 3px solid hsl(var(--wood-dark));
+    box-shadow: 
+      inset 2px 2px 0 hsl(var(--wood-light)),
+      inset -2px -2px 0 hsl(var(--wood-darker)),
+      0 4px 0 hsl(var(--wood-darker));
+  }
+  
+  .pixel-button {
+    @apply pixel-border bg-wood-medium text-foreground font-bold;
+    transition: none;
+  }
+  
+  .pixel-button:hover {
+    @apply bg-wood-light;
+    transform: translateY(2px);
+    box-shadow: 
+      inset 2px 2px 0 hsl(var(--wood-light)),
+      inset -2px -2px 0 hsl(var(--wood-darker)),
+      0 2px 0 hsl(var(--wood-darker));
+  }
+  
+  .pixel-button:active {
+    transform: translateY(4px);
+    box-shadow: 
+      inset 2px 2px 0 hsl(var(--wood-light)),
+      inset -2px -2px 0 hsl(var(--wood-darker));
+  }
+  
+  .pixelated {
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -webkit-crisp-edges;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+  
+  .text-shadow {
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
   }
 }

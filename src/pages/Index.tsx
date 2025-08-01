@@ -1,11 +1,18 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import PortfolioProfile from '@/components/PortfolioProfile';
+import backgroundImage from '@/assets/background.png';
 
 const Index = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
+    <div 
+      className="min-h-screen bg-cover bg-center bg-fixed relative"
+      style={{ backgroundImage: `url(${backgroundImage})` }}
+    >
+      {/* Background overlay for better readability */}
+      <div className="absolute inset-0 bg-background/80"></div>
+      
+      {/* Content */}
+      <div className="relative z-10 container mx-auto py-8">
+        <PortfolioProfile />
       </div>
     </div>
   );
