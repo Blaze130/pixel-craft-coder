@@ -71,16 +71,16 @@ Beyond academics, I love playing the guitar and exploring storytelling through v
       color: '#E4405F'
     },
     {
-      name: 'Stack Overflow',
-      url: 'https://stackoverflow.com/users/31117881',
-      icon: ExternalLink,
-      color: '#F48024'
-    },
-    {
       name: 'GitHub',
       url: 'https://github.com/blazehue',
       icon: Github,
       color: '#181717'
+    },
+    {
+      name: 'Stack Overflow',
+      url: 'https://stackoverflow.com/users/31117881',
+      icon: ExternalLink,
+      color: '#F48024'
     },
     {
       name: 'Email',
