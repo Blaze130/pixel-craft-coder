@@ -39,7 +39,8 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
       }
     };
 
-    const handleClick = () => {
+    const handleClick = (e: MouseEvent) => {
+      e.preventDefault();
       if (!gameStarted) {
         startGame();
       } else {
@@ -47,12 +48,23 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
       }
     };
 
-    window.addEventListener('keydown', handleKeyPress);
-    window.addEventListener('click', handleClick);
+    const handleTouch = (e: TouchEvent) => {
+      e.preventDefault();
+      if (!gameStarted) {
+        startGame();
+      } else {
+        jump();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    document.addEventListener('mousedown', handleClick);
+    document.addEventListener('touchstart', handleTouch);
     
     return () => {
-      window.removeEventListener('keydown', handleKeyPress);
-      window.removeEventListener('click', handleClick);
+      document.removeEventListener('keydown', handleKeyPress);
+      document.removeEventListener('mousedown', handleClick);
+      document.removeEventListener('touchstart', handleTouch);
     };
   }, [jump, gameStarted]);
 
@@ -69,10 +81,10 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
       });
     }, 50);
 
-    // Auto-end game after 5 seconds
+    // Auto-end game after 4 seconds
     const gameTimer = setTimeout(() => {
       onGameEnd();
-    }, 5000);
+    }, 4000);
 
     return () => {
       clearInterval(gameInterval);
@@ -137,7 +149,7 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
             </>
           ) : (
             <div className="text-wood-dark text-sm">
-              Space/Click to jump! Game ends in 5 seconds...
+              Space/Click/Tap to jump! Game ends in 4 seconds...
             </div>
           )}
         </div>

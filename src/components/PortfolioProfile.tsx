@@ -44,13 +44,13 @@ const skills: Skill[] = [
 ];
 
 const PortfolioProfile = () => {
-  const [coins, setCoins] = useState<Array<{id: number, x: number, y: number}>>([]);
+  const [coins, setCoins] = useState<Array<{id: number, x: number, y: number, value?: number}>>([]);
 
-  const addCoin = (e: React.MouseEvent) => {
+  const addCoin = (e: React.MouseEvent, value = 1) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX;
     const y = e.clientY;
-    const newCoin = { id: Date.now(), x, y };
+    const newCoin = { id: Date.now(), x, y, value };
     setCoins(prev => [...prev, newCoin]);
   };
 
@@ -174,7 +174,7 @@ Beyond academics, I love playing the guitar and exploring storytelling through v
                     rel="noopener noreferrer"
                     className="pixel-button p-3 hover:bg-wood-light transition-all duration-150"
                     title={social.name}
-                    onClick={addCoin}
+                    onClick={(e) => addCoin(e, 50)}
                   >
                     <IconComponent size={24} />
                   </a>
@@ -202,6 +202,7 @@ Beyond academics, I love playing the guitar and exploring storytelling through v
           key={coin.id}
           x={coin.x}
           y={coin.y}
+          value={coin.value}
           onComplete={() => removeCoin(coin.id)}
         />
       ))}

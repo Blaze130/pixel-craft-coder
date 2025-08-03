@@ -70,47 +70,43 @@ All colors MUST be HSL.
   }
 
 .dark {
-  --background: var(--dark-bg-primary);
-  --foreground: 210 40% 98%;
-  --card: var(--dark-bg-secondary);
-  --card-foreground: 210 40% 98%;
-  --popover: var(--dark-bg-secondary);
-  --popover-foreground: 210 40% 98%;
-  --primary: 210 40% 98%;
-  --primary-foreground: 222.2 84% 4.9%;
-  --secondary: var(--dark-bg-secondary);
-  --secondary-foreground: 210 40% 98%;
-  --muted: 217.2 32.6% 17.5%;
-  --muted-foreground: 215 20.2% 65.1%;
-  --accent: 217.2 32.6% 17.5%;
-  --accent-foreground: 210 40% 98%;
-  --destructive: 0 62.8% 30.6%;
-  --destructive-foreground: 210 40% 98%;
-  --border: 217.2 32.6% 17.5%;
-  --input: 217.2 32.6% 17.5%;
-  --ring: 212.7 26.8% 83.9%;
-  --chart-1: 220 70% 50%;
-  --chart-2: 160 60% 45%;
-  --chart-3: 30 80% 55%;
-  --chart-4: 280 65% 60%;
-  --chart-5: 340 75% 55%;
+  /* Clean black/white dark mode */
+  --background: 10 10 10;
+  --foreground: 245 245 245;
+  --card: 20 20 20;
+  --card-foreground: 245 245 245;
+  --popover: 20 20 20;
+  --popover-foreground: 245 245 245;
+  --primary: 180 100% 70%;
+  --primary-foreground: 10 10 10;
+  --secondary: 30 30 30;
+  --secondary-foreground: 245 245 245;
+  --muted: 40 40 40;
+  --muted-foreground: 180 180 180;
+  --accent: 120 100% 70%;
+  --accent-foreground: 10 10 10;
+  --destructive: 0 80% 60%;
+  --destructive-foreground: 245 245 245;
+  --border: 60 60 60;
+  --input: 30 30 30;
+  --ring: 180 100% 70%;
 
-  /* Dark mode wood colors */
-  --wood-lightest: var(--dark-bg-secondary);
-  --wood-light: 25 25 35;
-  --wood-medium: 35 35 45;
-  --wood-dark: 180 180 190;
-  --wood-darker: 220 220 230;
+  /* Dark mode wood colors - clean black/white */
+  --wood-lightest: 30 30 30;
+  --wood-light: 40 40 40;
+  --wood-medium: 60 60 60;
+  --wood-dark: 180 180 180;
+  --wood-darker: 245 245 245;
 
   /* Sidebar colors for dark mode */
-  --sidebar-background: 222.2 84% 4.9%;
-  --sidebar-foreground: 210 40% 98%;
-  --sidebar-primary: 210 40% 98%;
-  --sidebar-primary-foreground: 222.2 84% 4.9%;
-  --sidebar-accent: 217.2 32.6% 17.5%;
-  --sidebar-accent-foreground: 210 40% 98%;
-  --sidebar-border: 217.2 32.6% 17.5%;
-  --sidebar-ring: 217.2 32.6% 17.5%;
+  --sidebar-background: 10 10 10;
+  --sidebar-foreground: 245 245 245;
+  --sidebar-primary: 180 100% 70%;
+  --sidebar-primary-foreground: 10 10 10;
+  --sidebar-accent: 30 30 30;
+  --sidebar-accent-foreground: 245 245 245;
+  --sidebar-border: 60 60 60;
+  --sidebar-ring: 180 100% 70%;
 }
 }
 
@@ -165,5 +161,24 @@ All colors MUST be HSL.
   
   .text-shadow {
     text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+  }
+
+  /* Dark mode animated background */
+  .dark-mode-bg {
+    background: linear-gradient(45deg, #0a0a0a 25%, #1a1a1a 25%, #1a1a1a 50%, #0a0a0a 50%, #0a0a0a 75%, #1a1a1a 75%);
+    background-size: 20px 20px;
+    animation: moveGrid 10s linear infinite;
+  }
+
+  @keyframes moveGrid {
+    0% { background-position: 0 0; }
+    100% { background-position: 20px 20px; }
+  }
+
+  /* Pixel font for coins */
+  .pixel-font {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
   }
 }
