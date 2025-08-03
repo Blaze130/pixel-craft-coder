@@ -42,8 +42,6 @@ const skills: Skill[] = [
   { name: 'Framer', category: 'tool' },
   { name: 'Figma', category: 'tool' },
   { name: 'Lightroom', category: 'tool' },
-  { name: 'Matplotlib', category: 'framework' },
-  { name: 'Arduino', category: 'tool' },
 ];
 
 const PortfolioProfile = () => {
