@@ -2,6 +2,8 @@ import { Github, Linkedin, Instagram, Mail, ExternalLink } from 'lucide-react';
 import profilePortrait from '@/assets/profile-portrait.png';
 import { SkillIcon } from './SkillIcon';
 import { PixelHeart } from './PixelHeart';
+import CoinEffect from './CoinEffect';
+import { useState } from 'react';
 
 interface Skill {
   name: string;
@@ -18,9 +20,8 @@ const skills: Skill[] = [
   { name: 'Azure', category: 'cloud' },
   { name: '.NET', category: 'framework' },
   { name: 'Angular', category: 'framework' },
-  { name: 'Angular.js', category: 'framework' },
+  
   { name: 'Django', category: 'framework' },
-  { name: 'Express.js', category: 'framework' },
   { name: 'FastAPI', category: 'framework' },
   { name: 'Next.js', category: 'framework' },
   { name: 'Node.js', category: 'framework' },
@@ -39,12 +40,23 @@ const skills: Skill[] = [
   { name: 'Supabase', category: 'database' },
   { name: 'Adobe', category: 'tool' },
   { name: 'Illustrator', category: 'tool' },
-  { name: 'Framer', category: 'tool' },
   { name: 'Figma', category: 'tool' },
-  { name: 'Lightroom', category: 'tool' },
 ];
 
 const PortfolioProfile = () => {
+  const [coins, setCoins] = useState<Array<{id: number, x: number, y: number}>>([]);
+
+  const addCoin = (e: React.MouseEvent) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX;
+    const y = e.clientY;
+    const newCoin = { id: Date.now(), x, y };
+    setCoins(prev => [...prev, newCoin]);
+  };
+
+  const removeCoin = (id: number) => {
+    setCoins(prev => prev.filter(coin => coin.id !== id));
+  };
   const biography = `Hello! I'm an undergrad student at SRMIST, Chennai, pursuing Computer Science and Engineering with a keen interest in full-stack web development. I'm passionate about programming and eager to deepen my knowledge in coding while blending it with my creative side.
 
 Beyond academics, I love playing the guitar and exploring storytelling through visuals, animations, and illustrations. As I continue my academic and creative journey, I'm excited to dive into internships, workshops, and new opportunities to enhance my skills. I look forward to connecting with others and learning from their experiences!`;
@@ -139,7 +151,9 @@ Beyond academics, I love playing the guitar and exploring storytelling through v
             </h3>
             <div className="grid grid-cols-6 sm:grid-cols-8 md:grid-cols-10 gap-3">
               {skills.map((skill, index) => (
-                <SkillIcon key={index} skill={skill} />
+                <div key={index} onClick={addCoin} className="cursor-pointer">
+                  <SkillIcon skill={skill} />
+                </div>
               ))}
             </div>
           </div>
@@ -160,6 +174,7 @@ Beyond academics, I love playing the guitar and exploring storytelling through v
                     rel="noopener noreferrer"
                     className="pixel-button p-3 hover:bg-wood-light transition-all duration-150"
                     title={social.name}
+                    onClick={addCoin}
                   >
                     <IconComponent size={24} />
                   </a>
@@ -180,6 +195,16 @@ Beyond academics, I love playing the guitar and exploring storytelling through v
           </div>
         </div>
       </div>
+      
+      {/* Coin Effects */}
+      {coins.map((coin) => (
+        <CoinEffect
+          key={coin.id}
+          x={coin.x}
+          y={coin.y}
+          onComplete={() => removeCoin(coin.id)}
+        />
+      ))}
     </div>
   );
 };
