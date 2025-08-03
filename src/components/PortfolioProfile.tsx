@@ -39,17 +39,11 @@ const skills: Skill[] = [
   { name: 'Supabase', category: 'database' },
   { name: 'Adobe', category: 'tool' },
   { name: 'Illustrator', category: 'tool' },
-  { name: 'After Effects', category: 'tool' },
-  { name: 'Acrobat', category: 'tool' },
   { name: 'Framer', category: 'tool' },
   { name: 'Figma', category: 'tool' },
   { name: 'Lightroom', category: 'tool' },
-  { name: 'Blender', category: 'tool' },
-  { name: 'NumPy', category: 'framework' },
-  { name: 'Pandas', category: 'framework' },
   { name: 'Matplotlib', category: 'framework' },
   { name: 'Arduino', category: 'tool' },
-  { name: 'Unreal Engine', category: 'tool' },
 ];
 
 const PortfolioProfile = () => {
