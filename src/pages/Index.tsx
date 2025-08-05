@@ -11,7 +11,7 @@ const Index = () => {
 
   const handleGameEnd = () => {
     setShowPreloader(false);
-    setTimeout(() => setShowContent(true), 100);
+    setTimeout(() => setShowContent(true), 500);
   };
 
   const toggleDarkMode = (dark: boolean) => {
@@ -67,8 +67,8 @@ const Index = () => {
       
       {/* "LET'S GET INTO IT!" text overlay */}
       {!showPreloader && !showContent && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/90">
-          <h1 className="text-4xl font-bold text-white animate-pulse pixel-border bg-wood-dark p-6 pixel-font">
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/95 transition-opacity duration-500">
+          <h1 className="text-4xl font-bold text-white animate-fade-in pixel-border bg-wood-dark p-6 pixel-font">
             LET'S GET INTO IT!
           </h1>
         </div>

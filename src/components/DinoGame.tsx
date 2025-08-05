@@ -13,7 +13,7 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
   const jump = useCallback(() => {
     if (!isJumping && gameStarted) {
       setIsJumping(true);
-      setTimeout(() => setIsJumping(false), 500);
+      setTimeout(() => setIsJumping(false), 400);
     }
   }, [isJumping, gameStarted]);
 
@@ -29,7 +29,7 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
 
   useEffect(() => {
     const handleKeyPress = (e: KeyboardEvent) => {
-      if (e.code === 'Space' || e.code === 'ArrowUp') {
+      if (e.code === 'Space' || e.code === 'ArrowUp' || e.key === ' ') {
         e.preventDefault();
         if (!gameStarted) {
           startGame();
@@ -39,16 +39,7 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
       }
     };
 
-    const handleClick = (e: MouseEvent) => {
-      e.preventDefault();
-      if (!gameStarted) {
-        startGame();
-      } else {
-        jump();
-      }
-    };
-
-    const handleTouch = (e: TouchEvent) => {
+    const handleClick = (e: MouseEvent | TouchEvent) => {
       e.preventDefault();
       if (!gameStarted) {
         startGame();
@@ -58,13 +49,15 @@ const DinoGame = ({ onGameEnd }: DinoGameProps) => {
     };
 
     document.addEventListener('keydown', handleKeyPress);
-    document.addEventListener('mousedown', handleClick);
-    document.addEventListener('touchstart', handleTouch);
+    document.addEventListener('click', handleClick);
+    document.addEventListener('touchstart', handleClick, { passive: false });
+    document.addEventListener('touchend', handleClick, { passive: false });
     
     return () => {
       document.removeEventListener('keydown', handleKeyPress);
-      document.removeEventListener('mousedown', handleClick);
-      document.removeEventListener('touchstart', handleTouch);
+      document.removeEventListener('click', handleClick);
+      document.removeEventListener('touchstart', handleClick);
+      document.removeEventListener('touchend', handleClick);
     };
   }, [jump, gameStarted]);
 
