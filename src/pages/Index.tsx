@@ -2,28 +2,50 @@ import PortfolioProfile from '@/components/PortfolioProfile';
 import DinoGame from '@/components/DinoGame';
 import DarkModeToggle from '@/components/DarkModeToggle';
 import backgroundImage from '@/assets/background.png';
+import darkBackgroundImage from '@/assets/dark-background.png';
 import { useState, useEffect } from 'react';
 
 const Index = () => {
   const [showPreloader, setShowPreloader] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [showContent, setShowContent] = useState(false);
+  const [showTransition, setShowTransition] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const handleGameEnd = () => {
     setShowPreloader(false);
-    setTimeout(() => setShowContent(true), 500);
+    setShowTransition(true);
+  };
+
+  const handleTransitionClick = () => {
+    setShowTransition(false);
+    setTimeout(() => setShowContent(true), 200);
   };
 
   const toggleDarkMode = (dark: boolean) => {
-    setIsDarkMode(dark);
+    // Add white flash transition
+    document.body.style.transition = 'background-color 0.3s ease';
     if (dark) {
-      document.documentElement.classList.add('dark');
+      document.body.style.backgroundColor = 'white';
+      setTimeout(() => {
+        setIsDarkMode(dark);
+        document.documentElement.classList.add('dark');
+        document.body.style.backgroundColor = '';
+      }, 150);
     } else {
-      document.documentElement.classList.remove('dark');
+      document.body.style.backgroundColor = 'white';
+      setTimeout(() => {
+        setIsDarkMode(dark);
+        document.documentElement.classList.remove('dark');
+        document.body.style.backgroundColor = '';
+      }, 150);
     }
   };
 
   useEffect(() => {
+    // Initial load animation
+    setTimeout(() => setIsLoaded(true), 100);
+    
     if (!showPreloader && showContent) {
       // Trigger animations for content sections
       const elements = document.querySelectorAll('.animate-on-load');
@@ -36,17 +58,35 @@ const Index = () => {
   }, [showPreloader, showContent]);
 
   if (showPreloader) {
-    return <DinoGame onGameEnd={handleGameEnd} />;
+    return (
+      <div className={`transition-opacity duration-700 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
+        <DinoGame onGameEnd={handleGameEnd} />
+      </div>
+    );
+  }
+
+  if (showTransition) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/95 transition-opacity duration-500">
+        <button
+          onClick={handleTransitionClick}
+          onTouchStart={handleTransitionClick}
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-white animate-fade-in pixel-border bg-wood-dark p-4 sm:p-6 pixel-font cursor-pointer hover:bg-wood-medium transition-colors duration-200"
+        >
+          LET'S GET INTO IT!
+        </button>
+      </div>
+    );
   }
 
   return (
     <div 
-      className={`min-h-screen bg-cover bg-center bg-fixed relative transition-all duration-500 ${
+      className={`min-h-screen bg-cover bg-center bg-fixed relative transition-all duration-700 ${
         isDarkMode ? 'dark dark-mode-bg' : ''
       }`}
       style={{ 
         backgroundImage: isDarkMode 
-          ? 'none'
+          ? `url(${darkBackgroundImage})`
           : `url(${backgroundImage})`
       }}
     >
@@ -64,15 +104,6 @@ const Index = () => {
           <PortfolioProfile />
         </div>
       </div>
-      
-      {/* "LET'S GET INTO IT!" text overlay */}
-      {!showPreloader && !showContent && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black/95 transition-opacity duration-500">
-          <h1 className="text-4xl font-bold text-white animate-fade-in pixel-border bg-wood-dark p-6 pixel-font">
-            LET'S GET INTO IT!
-          </h1>
-        </div>
-      )}
     </div>
   );
 };
